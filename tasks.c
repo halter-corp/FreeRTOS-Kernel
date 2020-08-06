@@ -3678,6 +3678,12 @@ static void prvCheckTasksWaitingTermination( void )
 		pxTaskStatus->pcTaskName = ( const char * ) &( pxTCB->pcTaskName [ 0 ] );
 		pxTaskStatus->uxCurrentPriority = pxTCB->uxPriority;
 		pxTaskStatus->pxStackBase = pxTCB->pxStack;
+
+		#ifdef HALTER_MODIFIED_FREERTOS_KERNEL
+			pxTaskStatus->pxTopOfStack = (StackType_t *)pxTCB->pxTopOfStack;
+			pxTaskStatus->pxEndOfStack = pxTCB->pxEndOfStack;
+		#endif
+
 		pxTaskStatus->xTaskNumber = pxTCB->uxTCBNumber;
 
 		#if ( configUSE_MUTEXES == 1 )
